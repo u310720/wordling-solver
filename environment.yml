@@ -1,0 +1,8 @@
+name: wordling
+channels:
+  - defaults
+dependencies:
+  - nltk
+  - prompt_toolkit
+  - rich
+  - readchar
