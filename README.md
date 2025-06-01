@@ -4,7 +4,7 @@ A simple terminal UI solver for the word puzzle game [**Wordling: Daily Word Cha
 
 ## Screenshot
 
-![Screenshot](screenshot.png)
+![Screenshot](images/screenshot.png)
 
 ## How to Run
 
