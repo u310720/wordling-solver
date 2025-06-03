@@ -1,4 +1,4 @@
-# wordling-solver
+# Wordling Solver
 
 A simple terminal UI solver for the word puzzle game [**Wordling: Daily Word Challenge**](https://play.google.com/store/apps/details?id=io.digitalsnacks.wordchallenge&hl=zh_TW&pli=1)
 
