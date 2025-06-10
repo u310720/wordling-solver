@@ -26,15 +26,15 @@ console = Console()
 
 
 class WordlingSolver:
-    def __init__(self, words: Iterable[str], page_size: int = 10):
+    def __init__(self, words: Iterable[str], word_per_page: int = 10):
         self.word_set = set(w.lower() for w in words)
-        self.page_size = page_size
+        self.word_per_page = word_per_page
         self.pattern = ""
         self.include = ""
         self.exclude = ""
         self.cached_pattern = ""
-        self.cached_exclude = ""
         self.cached_include = ""
+        self.cached_exclude = ""
         self.cached_matches = []
 
     def run(self):
@@ -46,9 +46,11 @@ class WordlingSolver:
             self._render_page(current_page)
             match readchar.readkey():
                 case readchar.key.RIGHT:
+                    # next page
                     if current_page < self.total_pages - 1:
                         current_page += 1
                 case readchar.key.LEFT:
+                    # previous page
                     if current_page > 0:
                         current_page -= 1
                 case 'p':
@@ -61,17 +63,19 @@ class WordlingSolver:
                     self._input_exclude()
                     current_page = 0
                 case 'r':
+                    # reset
                     self.pattern = ""
                     self.include = ""
                     self.exclude = ""
                     current_page = 0
                 case 'q':
+                    # quit
                     sys.exit(0)
                 case _:
                     continue
 
     def _prompt_input(self, prompt_msg):
-        symbol = HTML('<b><purple>>> </purple></b>')
+        symbol = HTML('<b><violet>>> </violet></b>')
         console.rule(RuleText("Prompt"))
         console.print(prompt_msg)
         console.show_cursor(True)
@@ -104,8 +108,8 @@ class WordlingSolver:
 
         # Display the matches in a table
         table = Table(box=None, show_header=False)
-        start = n * self.page_size
-        end = start + self.page_size
+        start = n * self.word_per_page
+        end = start + self.word_per_page
         for i in range(start, end):
             if i < len(self.matches):
                 # Align the output with the header 'Pattern', 'Include', and
@@ -183,7 +187,7 @@ class WordlingSolver:
 
     @property
     def total_pages(self):
-        return max((len(self.matches) + self.page_size - 1) // self.page_size, 1)
+        return max((len(self.matches) + self.word_per_page - 1) // self.word_per_page, 1)
 
     def _input_pattern(self):
         prompt_msg = "Enter a regex pattern: "
